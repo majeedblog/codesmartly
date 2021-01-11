@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/codesmartly-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/codesmartly-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/codesmartly-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/codesmartly-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/codesmartly-blog/css/main.css">
+
+
+<link rel="stylesheet" href="/codesmartly-blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jidsfotech.github.io","root":"/codesmartly-blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-2}},"Available values":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="In the first two part of this guide, we  Setup a mock API - we did this to simulate API call to a backend  Setup React Table - we setup a react-table at the most basic level  Implemented Table Paginat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Implement Table Filter React-Table V7">
+<meta property="og:url" content="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/index.html">
+<meta property="og:site_name" content="code-smartly">
+<meta property="og:description" content="In the first two part of this guide, we  Setup a mock API - we did this to simulate API call to a backend  Setup React Table - we setup a react-table at the most basic level  Implemented Table Paginat">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/TableWithFilters.png">
+<meta property="article:published_time" content="2021-01-08T23:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-11T13:33:45.108Z">
+<meta property="article:author" content="Majeed Shuaib">
+<meta property="article:tag" content="how to solve programming error, issues and debugging api javascript, react, python, java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/TableWithFilters.png">
+
+<link rel="canonical" href="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>How to Implement Table Filter React-Table V7 | code-smartly</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/codesmartly-blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">code-smartly</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Learn to code the smart way!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/codesmartly-blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/codesmartly-blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/codesmartly-blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/codesmartly-blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">6</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/codesmartly-blog/images/avatar.gif">
+      <meta itemprop="name" content="Majeed Shuaib">
+      <meta itemprop="description" content="I'm FullStack Developer, I create courses & love learning, writing, teaching technology. (Javascript, Python, Java, NodeJS, SQL Server, React, Mongo DB, Git)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="code-smartly">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          How to Implement Table Filter React-Table V7
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-09 00:00:00" itemprop="dateCreated datePublished" datetime="2021-01-09T00:00:00+01:00">2021-01-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-11 14:33:45" itemprop="dateModified" datetime="2021-01-11T14:33:45+01:00">2021-01-11</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/codesmartly-blog/React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>In the first two part of this guide, we</p>
+<ul>
+<li><p><a href="https://jidsfotech.github.io/codesmartly-blog/Mock-API-in-React/json-server/How-To-Create-a-Mock-API-in-React/">Setup a mock API</a> - <em>we did this to simulate API call to a backend</em></p>
+</li>
+<li><p><a href="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Create-Dynamic-Tables-From-React-Table-v7/">Setup React Table</a> - <em>we setup a react-table at the most basic level</em></p>
+</li>
+<li><p><a href="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Implement-Table-Pagination-React-Table-v7/">Implemented Table Pagination</a> - <em>We implemented Pagination functionality for our table</em></p>
+</li>
+</ul>
+<p>For clarity sake, if you’re not already familiar with <strong><em>react-table</em></strong> it is recommended that you setup the Table by going through the previous guides respectively:</p>
+<p><a href="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Create-Dynamic-Tables-From-React-Table-v7/">How to Create Dynamic Tables From React Table v7</a></p>
+<p><a href="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Implement-Table-Pagination-React-Table-v7/">How To Implement Table Pagination React-Table v7</a></p>
+<p>In this part, we will</p>
+<ul>
+<li><p>Create a <a href="https://jidsfotech.github.io/codesmartly-blog/Javascript/ReactJs/How-To-Create-A-Date-Picker-Icon/">Date-Picker</a> Component for Date Filtering</p>
+</li>
+<li><p>Create a Component with several option buttons for the purpose Filtering Table by transactions <em>category</em></p>
+</li>
+<li><p>Create a Search Component for Filtering the Table base on the search value</p>
+</li>
+<li><p>Implement React-Table Filter Hooks </p>
+<ul>
+<li><em>useFilters</em> </li>
+<li><em>useGlobalFilter</em></li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="Create-a-Simple-Reusable-Datepicker-Component"><a href="#Create-a-Simple-Reusable-Datepicker-Component" class="headerlink" title="Create a Simple Reusable Datepicker Component"></a>Create a Simple Reusable Datepicker Component</h2><p>We want to be able to filter our Table using date range, therefore we need to implement a DatePicker Component. The Component will do two basic things</p>
+<ul>
+<li>Set a Start-Date - <em>Start Filtering from this date</em></li>
+<li>Set an End-Date - <em>To this date</em></li>
+</ul>
+<p>Let us start by installing <em>react-datepicker</em> library of course you can chose to use any Datepicker library you are most comfortable with. I chose <em>react-datepicker</em> because it is easy to customize and well documented. </p>
+<p><a href="https://jidsfotech.github.io/codesmartly-blog/Javascript/ReactJs/How-To-Create-A-Date-Picker-Icon/">Here is a Tutorial that explain in depth How to Create a reusable Date Picker by Customizing the <strong><em>react-datepicker</em></strong> library to suit your design needs</a> </p>
+<p>Let us install <strong><em>react-datepicker</em></strong> and <strong><em>react-icons</em></strong> library</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> react-datepicker react-icons --save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Or via yarn:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">yarn</span> <span class="token function">add</span> react-datepicker react-icons<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>Create a file and name it <strong>DatePicker.js</strong> </p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> DatePicker <span class="token keyword">from</span> <span class="token string">"react-datepicker"</span><span class="token punctuation">;</span> <span class="token comment">//import reat-datepicker module</span>
+<span class="token keyword">import</span> <span class="token string">"react-datepicker/dist/react-datepicker.css"</span><span class="token punctuation">;</span> <span class="token comment">//import reat-datepicker module css</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> FiCalendar <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"react-icons/fi"</span><span class="token punctuation">;</span><span class="token comment">//import calendar icon from reat-icon </span>
+
+<span class="token comment">/**
+   * Customise input component for the datepicker 
+   * replace the default date picker component with with a calendar icon
+*/</span>
+<span class="token keyword">const</span> DatePickerCustomInput <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">forwardRef</span><span class="token punctuation">(</span>
+    <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">&#123;</span> onClick <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> ref</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"calendar_icon"</span><span class="token operator">></span><span class="token operator">&lt;</span>FiCalendar onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span>onClick<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> ref <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createRef</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// we need to add a Dom ref to the new Component to avoid Dom reffrence Error</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">DatePickerCalendar</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"datepicker"</span> style<span class="token operator">=</span><span class="token punctuation">&#123;</span>style<span class="token punctuation">&#125;</span> <span class="token operator">></span>
+            <span class="token operator">&lt;</span>DatePicker
+                selected<span class="token operator">=</span><span class="token punctuation">&#123;</span>props<span class="token punctuation">.</span>date<span class="token punctuation">&#125;</span>
+                onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span>props<span class="token punctuation">.</span>handleDateChange<span class="token punctuation">&#125;</span>
+                customInput<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token operator">&lt;</span>DatePickerCustomInput ref<span class="token operator">=</span><span class="token punctuation">&#123;</span>ref<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">&#125;</span>
+                dateFormat<span class="token operator">=</span><span class="token string">"yyyy/MM/dd"</span>
+            <span class="token operator">/</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">const</span> style <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    display<span class="token operator">:</span> <span class="token string">"inline-block"</span><span class="token punctuation">,</span> 
+    marginLeft<span class="token operator">:</span> <span class="token string">"6px"</span><span class="token punctuation">,</span>
+    fontSize<span class="token operator">:</span> <span class="token string">"1em"</span><span class="token punctuation">,</span>
+    color<span class="token operator">:</span> <span class="token string">"#32e0c4"</span><span class="token punctuation">,</span>
+    cursor<span class="token operator">:</span> <span class="token string">"pointer"</span>  
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> DatePickerCalendar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Now that we have our Datepicker Component setup, lets create a file that will house all our Filter implementations I named mine Filter.js. </p>
+<p><strong><em>Filter.js</em></strong></p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> DatePicker <span class="token keyword">from</span> <span class="token string">"./DatePickerCalendar"</span><span class="token punctuation">;</span> <span class="token comment">//import the Datepicker Component we setup from DatePickerCallendar.js</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> AiOutlineSync<span class="token punctuation">,</span> <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"react-icons/ai"</span><span class="token punctuation">;</span> 
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> useAsyncDebounce <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react-table'</span><span class="token punctuation">;</span>
+
+
+ <span class="token keyword">const</span> <span class="token function-variable function">Filters</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">const</span> <span class="token punctuation">[</span>startDate<span class="token punctuation">,</span> setStartDate<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token punctuation">[</span>endDate<span class="token punctuation">,</span> setEndDate<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token punctuation">[</span>categoryFilterValue<span class="token punctuation">,</span> setCategoryFilterValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">useState</span><span class="token punctuation">(</span>props<span class="token punctuation">.</span>globalFilter<span class="token punctuation">)</span>
+    <span class="token keyword">const</span> count <span class="token operator">=</span> props<span class="token punctuation">.</span>preGlobalFilteredRows<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+
+    <span class="token comment">// attached to onChange event listener of Global filter input box</span>
+    <span class="token keyword">const</span> onChange <span class="token operator">=</span> <span class="token function">useAsyncDebounce</span><span class="token punctuation">(</span><span class="token parameter">value</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        props<span class="token punctuation">.</span><span class="token function">setGlobalFilter</span><span class="token punctuation">(</span>value <span class="token operator">||</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">)</span>
+
+    <span class="token comment">//called when a user selects filter start-date </span>
+    <span class="token keyword">const</span> <span class="token function-variable function">handleStartDate</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">date</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token function">setStartDate</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">//called when a user selects filter end-date </span>
+    <span class="token keyword">const</span> <span class="token function-variable function">handleEndDate</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">date</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token function">setEndDate</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Hnadles Selected Category filter option and update the state  </span>
+    <span class="token keyword">const</span> <span class="token function-variable function">handleCategoryOptionsChange</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token function">setCategoryFilterValue</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Auto Rest All Filters</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">autoResetFilter</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token function">setStartDate</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setEndDate</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setCategoryFilterValue</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        props<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> type<span class="token operator">:</span> <span class="token string">"resetFilters"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> radios <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">'input[name="category-Filters"]'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token keyword">of</span> radios<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>i<span class="token punctuation">.</span>checked<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                i<span class="token punctuation">.</span>checked <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Filter table by selected category option</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">handleFilterByCategory</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        props<span class="token punctuation">.</span><span class="token function">setFilter</span><span class="token punctuation">(</span><span class="token string">"category"</span><span class="token punctuation">,</span> categoryFilterValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Filter table by selected start-date and end-date</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">handleFilterByDate</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>startDate <span class="token operator">&amp;&amp;</span> endDate<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            props<span class="token punctuation">.</span><span class="token function">setFilter</span><span class="token punctuation">(</span><span class="token string">"date"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>startDate<span class="token punctuation">,</span> endDate<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// Handles all calls to filter the table &lt;-- attached to onClick event of "apply filter button" --></span>
+    <span class="token keyword">const</span> <span class="token function-variable function">applyFilter</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>startDate <span class="token operator">&amp;&amp;</span> endDate <span class="token operator">&amp;&amp;</span> categoryFilterValue<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">handleFilterByDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">handleFilterByCategory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>startDate <span class="token operator">&amp;&amp;</span> endDate <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>categoryFilterValue<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">handleFilterByDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>startDate <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>endDate <span class="token operator">&amp;&amp;</span> categoryFilterValue<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">handleFilterByCategory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>startDate <span class="token operator">&amp;&amp;</span> endDate <span class="token operator">||</span> startDate <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>endDate<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            window<span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"Please Make sure you select start-date and end-date"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        <span class="token operator">&lt;</span>div<span class="token operator">></span>
+
+        <span class="token punctuation">&#123;</span><span class="token comment">/** Datepicker and reset Button section */</span><span class="token punctuation">&#125;</span>
+            <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"filterParameters"</span> id<span class="token operator">=</span><span class="token string">"filterParameters"</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"datePickerWrapper"</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"Datepicker-grid-container"</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span>div<span class="token operator">></span>Filter <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"startDate"</span><span class="token operator">></span>From<span class="token operator">:</span> <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"datePickerLabel"</span><span class="token operator">></span><span class="token punctuation">&#123;</span>startDate <span class="token operator">?</span> startDate<span class="token punctuation">.</span><span class="token function">toLocaleDateString</span><span class="token punctuation">(</span><span class="token string">"fr-CA"</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                            <span class="token operator">&lt;</span> DatePicker handleDateChange<span class="token operator">=</span><span class="token punctuation">&#123;</span>handleStartDate<span class="token punctuation">&#125;</span> date<span class="token operator">=</span><span class="token punctuation">&#123;</span>startDate<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"verticalLine"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"endDate"</span><span class="token operator">></span>To<span class="token operator">:</span> <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"datePickerLabel"</span><span class="token operator">></span><span class="token punctuation">&#123;</span>endDate <span class="token operator">?</span> endDate<span class="token punctuation">.</span><span class="token function">toLocaleDateString</span><span class="token punctuation">(</span><span class="token string">"fr-CA"</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                            <span class="token operator">&lt;</span> DatePicker handleDateChange<span class="token operator">=</span><span class="token punctuation">&#123;</span>handleEndDate<span class="token punctuation">&#125;</span> date<span class="token operator">=</span><span class="token punctuation">&#123;</span>endDate<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"resetFilter"</span> onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span>autoResetFilter<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">&lt;</span>span<span class="token operator">></span>Reset<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>AiOutlineSync className<span class="token operator">=</span><span class="token string">"resetFilter_icon"</span> <span class="token operator">/</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+            
+            <span class="token punctuation">&#123;</span><span class="token comment">/** Options Buttons for setting the filter by category value */</span><span class="token punctuation">&#125;</span>
+            <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"filterByCategoryOptions"</span> id<span class="token operator">=</span><span class="token string">"filterByCategory"</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span>div onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span>handleCategoryOptionsChange<span class="token punctuation">&#125;</span> className<span class="token operator">=</span><span class="token string">"filterBy-RecievedMoney"</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"radio"</span> value<span class="token operator">=</span><span class="token string">"recieved"</span> name<span class="token operator">=</span><span class="token string">"category-Filters"</span> id<span class="token operator">=</span><span class="token string">"recievedMoney"</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">"recievedMoney"</span><span class="token operator">></span>Payment recieve<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>div onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span>handleCategoryOptionsChange<span class="token punctuation">&#125;</span> className<span class="token operator">=</span><span class="token string">"filterBy-moneySent"</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"radio"</span> value<span class="token operator">=</span><span class="token string">"sent"</span> name<span class="token operator">=</span><span class="token string">"category-Filters"</span> id<span class="token operator">=</span><span class="token string">"moneySent"</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">"moneySent"</span><span class="token operator">></span>Money Sent<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>div onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span>handleCategoryOptionsChange<span class="token punctuation">&#125;</span> className<span class="token operator">=</span><span class="token string">"filterBy-pendingTran"</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"radio"</span> value<span class="token operator">=</span><span class="token string">"pending"</span> name<span class="token operator">=</span><span class="token string">"category-Filters"</span> id<span class="token operator">=</span><span class="token string">"pendingTran"</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">"pendingTran"</span><span class="token operator">></span>Pending<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>div onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span>handleCategoryOptionsChange<span class="token punctuation">&#125;</span> className<span class="token operator">=</span><span class="token string">"filterBy-failedTran"</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"radio"</span> value<span class="token operator">=</span><span class="token string">"fail"</span> name<span class="token operator">=</span><span class="token string">"category-Filters"</span> id<span class="token operator">=</span><span class="token string">"failedTran"</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">"failedTran"</span><span class="token operator">></span>Failed<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+            <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"apply-filter"</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span>h3<span class="token operator">></span>All Transactions<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span>applyFilter<span class="token punctuation">&#125;</span> className<span class="token operator">=</span><span class="token string">"applyFilter-btn"</span> id<span class="token operator">=</span><span class="token string">"applyFilter-btn"</span><span class="token operator">></span> Apply Filte <span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+
+            <span class="token punctuation">&#123;</span><span class="token comment">/** Search input box for Filtering the Table base on "search text"*/</span><span class="token punctuation">&#125;</span>
+            <span class="token operator">&lt;</span>span className<span class="token operator">=</span><span class="token string">"globalFilterInput"</span> <span class="token operator">></span>
+                Search<span class="token operator">:</span><span class="token punctuation">&#123;</span><span class="token string">' '</span><span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span>input
+                    type<span class="token operator">=</span><span class="token string">"text"</span>
+                    value<span class="token operator">=</span><span class="token punctuation">&#123;</span>value <span class="token operator">||</span> <span class="token string">""</span><span class="token punctuation">&#125;</span>
+                    onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token parameter">e</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+                        <span class="token function">setValue</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token function">onChange</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+                    placeholder<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">records by user name</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">&#125;</span>
+                    style<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>
+                        fontSize<span class="token operator">:</span> <span class="token string">'1rem'</span><span class="token punctuation">,</span>
+                        border<span class="token operator">:</span> <span class="token string">'2px solid #32E0C4'</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div <span class="token operator">></span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> Filters<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>So far here is what we have done</p>
+<ul>
+<li><p>we imported the Datepicker Component that was created earlier from <strong>DatePickerCalendar.js</strong> and use it to update <strong><em>startDate</em></strong> and <strong><em>endDate</em></strong> as the selected Date value changes.</p>
+</li>
+<li><p>created a group of option buttons that will be used to filter the Table when an option is selected. The option button <strong>onChange</strong> event listener triggers and updates the <strong><em>filterByCategory</em></strong> state variable. </p>
+</li>
+<li><p>Created a Search Bar, the input box <strong>onChange</strong> even listener is attached to a function that sets filter value by calling <strong><em>setGlobalFilter(colunmName, filterValue)</em></strong> </p>
+</li>
+</ul>
+<ul>
+<li>created a filter button that is clicked to apply filter. The button <strong>onClick</strong> event listener is attached to a function that sets filter value by calling <strong><em>setFilter(colunmName, filterValue)</em></strong> </li>
+</ul>
+<p>Finally, we need to import the Filters Component inside the <strong>TransactionsLogTable.js</strong> file where it will be used.</p>
+<p>Open <strong><em>TransactionsLogTable.js</em></strong> File</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useMemo <span class="token punctuation">,</span> useAsyncDebounce<span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> TablePagination <span class="token keyword">from</span> <span class="token string">"./Pagination"</span><span class="token punctuation">;</span> <span class="token comment">// import TablePagination Component from our Pagination.js file</span>
+<span class="token keyword">import</span> Filters <span class="token keyword">from</span> <span class="token string">"./Filters"</span><span class="token punctuation">;</span> <span class="token comment">// import Filters Component from our Filters.js file</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span>
+    useTable<span class="token punctuation">,</span>
+    usePagination<span class="token punctuation">,</span>
+    useFilters<span class="token punctuation">,</span>
+    useGlobalFilter<span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react-table'</span><span class="token punctuation">;</span> <span class="token comment">// import react-table Hooks including useFilters and useGlobalFilter</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">TransactionsLogTable</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">&#123;</span> columns<span class="token punctuation">,</span> data <span class="token punctuation">&#125;</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">const</span> filterTypes <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        <span class="token function-variable function">dateFilter</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">rows<span class="token punctuation">,</span> id<span class="token punctuation">,</span> filterValue</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> rows <span class="token operator">=</span> rows<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">row</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span>row<span class="token punctuation">.</span>values<span class="token punctuation">.</span>date<span class="token punctuation">)</span> <span class="token operator">>=</span> filterValue<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span>row<span class="token punctuation">.</span>values<span class="token punctuation">.</span>date<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> filterValue<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">const</span> <span class="token punctuation">&#123;</span>
+        getTableProps<span class="token punctuation">,</span>
+        getTableBodyProps<span class="token punctuation">,</span>
+        headerGroups<span class="token punctuation">,</span>
+        prepareRow<span class="token punctuation">,</span>
+        page<span class="token punctuation">,</span>
+        canPreviousPage<span class="token punctuation">,</span>
+        canNextPage<span class="token punctuation">,</span>
+        pageOptions<span class="token punctuation">,</span>
+        nextPage<span class="token punctuation">,</span>
+        previousPage<span class="token punctuation">,</span>
+        setGlobalFilter<span class="token punctuation">,</span>
+        preGlobalFilteredRows<span class="token punctuation">,</span>
+        setFilter<span class="token punctuation">,</span>
+        dispatch<span class="token punctuation">,</span>
+        state<span class="token operator">:</span> <span class="token punctuation">&#123;</span> pageIndex<span class="token punctuation">,</span> pageSize<span class="token punctuation">,</span> globalFilter <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">useTable</span><span class="token punctuation">(</span>
+        <span class="token punctuation">&#123;</span>
+            columns<span class="token punctuation">,</span>
+            data<span class="token punctuation">,</span>
+            initialState<span class="token operator">:</span> <span class="token punctuation">&#123;</span> pageIndex<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> pageSize<span class="token operator">:</span> <span class="token number">5</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            filterTypes<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        useFilters<span class="token punctuation">,</span>
+        useGlobalFilter<span class="token punctuation">,</span>
+        usePagination
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        <span class="token operator">&lt;</span>div<span class="token operator">></span>
+        <span class="token punctuation">&#123;</span><span class="token comment">/** Filters Component */</span><span class="token punctuation">&#125;</span>
+            <span class="token operator">&lt;</span> Filters
+                setFilter<span class="token operator">=</span><span class="token punctuation">&#123;</span>setFilter<span class="token punctuation">&#125;</span>
+                preGlobalFilteredRows<span class="token operator">=</span><span class="token punctuation">&#123;</span>preGlobalFilteredRows<span class="token punctuation">&#125;</span>
+                globalFilter<span class="token operator">=</span><span class="token punctuation">&#123;</span>globalFilter<span class="token punctuation">&#125;</span>
+                setGlobalFilter<span class="token operator">=</span><span class="token punctuation">&#123;</span>setGlobalFilter<span class="token punctuation">&#125;</span>
+                dispatch<span class="token operator">=</span><span class="token punctuation">&#123;</span>dispatch<span class="token punctuation">&#125;</span>
+            <span class="token operator">/</span><span class="token operator">></span>
+
+            <span class="token punctuation">&#123;</span><span class="token comment">/** Table Component */</span><span class="token punctuation">&#125;</span>
+            <span class="token operator">&lt;</span>table <span class="token punctuation">&#123;</span><span class="token operator">...</span><span class="token function">getTableProps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span> className<span class="token operator">=</span><span class="token string">"TransactionsTable"</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span>thead<span class="token operator">></span>
+                    <span class="token punctuation">&#123;</span>headerGroups<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">headerGroup</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+                        <span class="token operator">&lt;</span>tr <span class="token punctuation">&#123;</span><span class="token operator">...</span>headerGroup<span class="token punctuation">.</span><span class="token function">getHeaderGroupProps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">></span>
+                            <span class="token punctuation">&#123;</span>headerGroup<span class="token punctuation">.</span>headers<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">column</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+                                <span class="token operator">&lt;</span>th <span class="token punctuation">&#123;</span><span class="token operator">...</span>column<span class="token punctuation">.</span><span class="token function">getHeaderProps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">></span>
+                                    <span class="token punctuation">&#123;</span>column<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token string">'Header'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+                                <span class="token operator">&lt;</span><span class="token operator">/</span>th<span class="token operator">></span>
+                            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+                        <span class="token operator">&lt;</span><span class="token operator">/</span>tr<span class="token operator">></span>
+                    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>thead<span class="token operator">></span>
+                <span class="token operator">&lt;</span>tbody <span class="token punctuation">&#123;</span><span class="token operator">...</span><span class="token function">getTableBodyProps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span> className<span class="token operator">=</span><span class="token string">"TransactionsTableBody"</span><span class="token operator">></span>
+                    <span class="token punctuation">&#123;</span>page<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">row</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+                        <span class="token function">prepareRow</span><span class="token punctuation">(</span>row<span class="token punctuation">)</span>
+                        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+                            <span class="token operator">&lt;</span>tr <span class="token punctuation">&#123;</span><span class="token operator">...</span>row<span class="token punctuation">.</span><span class="token function">getRowProps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">></span>
+                                <span class="token punctuation">&#123;</span>row<span class="token punctuation">.</span>cells<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">cell</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+                                    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+                                        <span class="token operator">&lt;</span>td <span class="token punctuation">&#123;</span><span class="token operator">...</span>cell<span class="token punctuation">.</span><span class="token function">getCellProps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">></span>
+                                            <span class="token punctuation">&#123;</span>cell<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token string">"Cell"</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+                                        <span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">></span>
+                                    <span class="token punctuation">)</span>
+                                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+                            <span class="token operator">&lt;</span><span class="token operator">/</span>tr<span class="token operator">></span>
+                        <span class="token punctuation">)</span>
+                    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>tbody<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>table<span class="token operator">></span>
+
+            <span class="token punctuation">&#123;</span><span class="token comment">/**Pagination Componenet*/</span><span class="token punctuation">&#125;</span>
+            <span class="token operator">&lt;</span>TablePagination
+                pageIndex<span class="token operator">=</span><span class="token punctuation">&#123;</span>pageIndex<span class="token punctuation">&#125;</span>
+                pageOptions<span class="token operator">=</span><span class="token punctuation">&#123;</span>pageOptions<span class="token punctuation">&#125;</span>
+                previousPage<span class="token operator">=</span><span class="token punctuation">&#123;</span>previousPage<span class="token punctuation">&#125;</span>
+                canPreviousPage<span class="token operator">=</span><span class="token punctuation">&#123;</span>canPreviousPage<span class="token punctuation">&#125;</span>
+                nextPage<span class="token operator">=</span><span class="token punctuation">&#123;</span>nextPage<span class="token punctuation">&#125;</span>
+                canNextPage<span class="token operator">=</span><span class="token punctuation">&#123;</span>canNextPage<span class="token punctuation">&#125;</span>
+            <span class="token operator">/</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> TransactionsLogTable<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>We are done with the Filter Implementation, start the React server as usual </p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> start<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>if you have followed this guide judiciously the output should look like this.<br><img src="/codesmartly-blog/React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/TableWithFilters.png" alt="Table with filter"></p>
+<p>Feel free to ask any question as regards this guide in the comment section</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/codesmartly-blog/React/Javascript/How-To-Implement-Table-Pagination-React-Table-v7/" rel="prev" title="How to Implement Table Pagination React-Table V7">
+      <i class="fa fa-chevron-left"></i> How to Implement Table Pagination React-Table V7
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-a-Simple-Reusable-Datepicker-Component"><span class="nav-number">1.</span> <span class="nav-text">Create a Simple Reusable Datepicker Component</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Majeed Shuaib"
+      src="/codesmartly-blog/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Majeed Shuaib</p>
+  <div class="site-description" itemprop="description">I'm FullStack Developer, I create courses & love learning, writing, teaching technology. (Javascript, Python, Java, NodeJS, SQL Server, React, Mongo DB, Git)</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/codesmartly-blog/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/codesmartly-blog/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jidsfotech" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jidsfotech" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Majeed Shuaib</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/codesmartly-blog/lib/anime.min.js"></script>
+  <script src="/codesmartly-blog/lib/velocity/velocity.min.js"></script>
+  <script src="/codesmartly-blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/codesmartly-blog/js/utils.js"></script>
+
+<script src="/codesmartly-blog/js/motion.js"></script>
+
+
+<script src="/codesmartly-blog/js/schemes/pisces.js"></script>
+
+
+<script src="/codesmartly-blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://codesmartly.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/";
+    this.page.identifier = "React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/";
+    this.page.title = "How to Implement Table Filter React-Table V7";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://codesmartly.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
