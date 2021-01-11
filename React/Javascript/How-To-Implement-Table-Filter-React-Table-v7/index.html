@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/TableWithFilters.png">
 <meta property="article:published_time" content="2021-01-08T23:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-11T13:33:45.108Z">
+<meta property="article:modified_time" content="2021-01-11T15:29:53.430Z">
 <meta property="article:author" content="Majeed Shuaib">
 <meta property="article:tag" content="how to solve programming error, issues and debugging api javascript, react, python, java">
 <meta name="twitter:card" content="summary">
@@ -195,7 +195,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-11 14:33:45" itemprop="dateModified" datetime="2021-01-11T14:33:45+01:00">2021-01-11</time>
+                <time title="Modified: 2021-01-11 16:29:53" itemprop="dateModified" datetime="2021-01-11T16:29:53+01:00">2021-01-11</time>
               </span>
 
           
@@ -225,19 +225,19 @@
       
         <p>In the first two part of this guide, we</p>
 <ul>
-<li><p><a href="https://jidsfotech.github.io/codesmartly-blog/Mock-API-in-React/json-server/How-To-Create-a-Mock-API-in-React/">Setup a mock API</a> - <em>we did this to simulate API call to a backend</em></p>
+<li><p><a href="https://jidsfotech.github.io/codesmartly/Mock-API-in-React/json-server/How-To-Create-a-Mock-API-in-React/">Setup a mock API</a> - <em>we did this to simulate API call to a backend</em></p>
 </li>
-<li><p><a href="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Create-Dynamic-Tables-From-React-Table-v7/">Setup React Table</a> - <em>we setup a react-table at the most basic level</em></p>
+<li><p><a href="https://jidsfotech.github.io/codesmartly/React/Javascript/How-To-Create-Dynamic-Tables-From-React-Table-v7/">Setup React Table</a> - <em>we setup a react-table at the most basic level</em></p>
 </li>
-<li><p><a href="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Implement-Table-Pagination-React-Table-v7/">Implemented Table Pagination</a> - <em>We implemented Pagination functionality for our table</em></p>
+<li><p><a href="https://jidsfotech.github.io/codesmartly/React/Javascript/How-To-Implement-Table-Pagination-React-Table-v7/">Implemented Table Pagination</a> - <em>We implemented Pagination functionality for our table</em></p>
 </li>
 </ul>
 <p>For clarity sake, if you’re not already familiar with <strong><em>react-table</em></strong> it is recommended that you setup the Table by going through the previous guides respectively:</p>
-<p><a href="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Create-Dynamic-Tables-From-React-Table-v7/">How to Create Dynamic Tables From React Table v7</a></p>
-<p><a href="https://jidsfotech.github.io/codesmartly-blog/React/Javascript/How-To-Implement-Table-Pagination-React-Table-v7/">How To Implement Table Pagination React-Table v7</a></p>
+<p><a href="https://jidsfotech.github.io/codesmartly/React/Javascript/How-To-Create-Dynamic-Tables-From-React-Table-v7/">How to Create Dynamic Tables From React Table v7</a></p>
+<p><a href="https://jidsfotech.github.io/codesmartly/React/Javascript/How-To-Implement-Table-Pagination-React-Table-v7/">How To Implement Table Pagination React-Table v7</a></p>
 <p>In this part, we will</p>
 <ul>
-<li><p>Create a <a href="https://jidsfotech.github.io/codesmartly-blog/Javascript/ReactJs/How-To-Create-A-Date-Picker-Icon/">Date-Picker</a> Component for Date Filtering</p>
+<li><p>Create a <a href="https://jidsfotech.github.io/codesmartly/Javascript/ReactJs/How-To-Create-A-Date-Picker-Icon/">Date-Picker</a> Component for Date Filtering</p>
 </li>
 <li><p>Create a Component with several option buttons for the purpose Filtering Table by transactions <em>category</em></p>
 </li>
@@ -258,7 +258,7 @@
 <li>Set an End-Date - <em>To this date</em></li>
 </ul>
 <p>Let us start by installing <em>react-datepicker</em> library of course you can chose to use any Datepicker library you are most comfortable with. I chose <em>react-datepicker</em> because it is easy to customize and well documented. </p>
-<p><a href="https://jidsfotech.github.io/codesmartly-blog/Javascript/ReactJs/How-To-Create-A-Date-Picker-Icon/">Here is a Tutorial that explain in depth How to Create a reusable Date Picker by Customizing the <strong><em>react-datepicker</em></strong> library to suit your design needs</a> </p>
+<p><a href="https://jidsfotech.github.io/codesmartly/Javascript/ReactJs/How-To-Create-A-Date-Picker-Icon/">Here is a Tutorial that explain in depth How to Create a reusable Date Picker by Customizing the <strong><em>react-datepicker</em></strong> library to suit your design needs</a> </p>
 <p>Let us install <strong><em>react-datepicker</em></strong> and <strong><em>react-icons</em></strong> library</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> react-datepicker react-icons --save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Or via yarn:</p>
