@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/React/Javascript/How-To-Create-Dynamic-Tables-From-React-Table-v7/</loc>
+    
+    <lastmod>2021-01-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/React/Javascript/How-To-Implement-Table-Pagination-React-Table-v7/</loc>
+    
+    <lastmod>2021-01-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/React/Javascript/How-To-Implement-Table-Filter-React-Table-v7/</loc>
+    
+    <lastmod>2021-01-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/Javascript/ReactJs/How-To-Create-A-Date-Picker-Icon/</loc>
+    
+    <lastmod>2021-01-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/Mock-API-in-React/json-server/How-To-Create-a-Mock-API-in-React/</loc>
+    
+    <lastmod>2021-01-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/tags/index.html</loc>
+    
+    <lastmod>2020-11-03</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/categories/index.html</loc>
+    
+    <lastmod>2020-11-03</lastmod>
+    
+  </url>
+  
+
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly</loc>
+    <lastmod>2021-01-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/categories/Mock-API-in-React/</loc>
+    <lastmod>2021-01-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/categories/Javascript/</loc>
+    <lastmod>2021-01-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/categories/React/</loc>
+    <lastmod>2021-01-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/categories/Mock-API-in-React/json-server/</loc>
+    <lastmod>2021-01-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/categories/Javascript/ReactJs/</loc>
+    <lastmod>2021-01-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jidsfotech.github.io/codesmartly/categories/React/Javascript/</loc>
+    <lastmod>2021-01-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+</urlset>
