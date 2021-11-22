@@ -82,7 +82,7 @@ const changePage =(page) => {
 
     for (let i = startPage; i < endPage && i < Books.length; i++) {
         pages.push(Books[i]); 
-        return [pages];
+        return pages;
     }
 ```
 
