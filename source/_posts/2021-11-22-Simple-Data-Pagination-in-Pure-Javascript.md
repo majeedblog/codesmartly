@@ -15,6 +15,7 @@ This guide is to help you understand the concept of pagination and how to implem
 I will try to explain how you can easily build a simple pagination feature in a step-by-step approach for an easy understanding of the main logic.
 
 At the bottom of this page is a jsFiddle live demo of this concept, feel free to skip all the explanations and move straight to the live demo if you can understand the code by yourself.
+<!-- more -->
 
 # Step 1
 Given a list of ten Books, we want to display two books at a time i.e two books per page.
@@ -89,7 +90,7 @@ const changePage =(page) => {
 here, we iterating throgh the Booklist and inserting the books that falls within the startPage  and endPage 
 inside the  pages list. then we retured the pages
 
-And we are done!.. thank you 
+And we are done!..
 
 # JsFiddle Live Demo
 <iframe width="100%" height="300" src="//jsfiddle.net/majeedblog/8nax7zyv/46/embedded/js,html,css,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
