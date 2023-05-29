@@ -181,7 +181,7 @@ site_state: true
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
   GitHub: https://github.com/jidsfotech || fab fa-github
-  #E-Mail: mailto:yourname@gmail.com || fa fa-envelope
+  E-Mail: mailto:jidsfotech@gmail.com || fa fa-envelope
   #Weibo: https://weibo.com/yourname || fab fa-weibo
   #Google: https://plus.google.com/yourname || fab fa-google
   #Twitter: https://twitter.com/yourname || fab fa-twitter
@@ -470,7 +470,7 @@ exturl: false
 
 # Google Webmaster tools verification.
 # See: https://www.google.com/webmasters
-google_site_verification: 2vBCqh8Im3fusSysiEia_AYqm4NT_BfSS2PaU5tBel0
+google_site_verification:  google6f36c4c076f81a4c.html
 
 # Bing Webmaster tools verification.
 # See: https://www.bing.com/webmaster

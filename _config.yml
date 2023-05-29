@@ -5,15 +5,15 @@
 # Site
 title: code smartly
 subtitle: Programming tutorials with practical examples 
-description: I'm FullStack Developer, I create courses & love learning, writing & teaching. (Javascript, Python, Java, NodeJS, React)
-keywords: Programming tutorials with practical examples, api,  javascript, react, python, java, html
+description: I'm FullStack Developer, I create courses & love learning, writing & teaching. (Javascript, NodeJS, React)
+keywords: Programming tutorials with practical examples, api,  javascrip, nodejs, html, and css
 author: Majeed Shuaib
 language: en
 timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: https://www.codesmartly.codes
+url: https://codesmartly.netlify.app
 root: /
 permalink: :category/:title/
 permalink_defaults:
